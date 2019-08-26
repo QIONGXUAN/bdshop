@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wener.mapper.ShopMapper">
+    <resultMap id="ShopMap" type="Shop">
+        <id property="shopId" column="shop_id"/>
+        <result property="name" column="sname"/>
+        <result property="originalPrice" column="original_price"/>
+        <result property="promotePrice" column="original_price"/>
+        <result property="stock" column="stock"/>
+        <result property="subTitle" column="sub_title"/>
+        <result property="createDate" column="create_date"/>
+    </resultMap>
+
+    <select id="findByShop" resultMap="ShopMap">
+        select s1.shop_id, name sname, sub_title, original_price, promote_price, stock, cate_id, create_date,s2.shop_img_id,ss.car_id, ss.number, ss.uid, ss.oid, ss.status
+        from shop s1
+        LEFT JOIN shop_image s2 on s1.shop_id=s2.shop_id
+        LEFT join shop_shopcar ss on s1.shop_id = ss.shop_id
+        where s1.cate_id=#{cid} group by s1.shop_id
+    </select>
+
+    <select id="findLikeShop" resultMap="ShopMap" parameterType="String">
+        select s1.shop_id, name, sub_title, original_price, promote_price, stock, cate_id, create_date,s2.shop_img_id,ss.car_id, ss.number, ss.uid, ss.oid, ss.status
+        from shop s1
+        LEFT JOIN shop_image s2 on s1.shop_id=s2.shop_id
+        LEFT join shop_shopcar ss on s1.shop_id = ss.shop_id
+        where s1.name like '%${name}%' group by s1.shop_id
+    </select>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vip.bd.mapper.BannerMapper">
+  <resultMap id="BaseResultMap" type="com.vip.bd.domain.entity.Banner">
+    <id column="banner_id"  property="bannerId" />
+    <result column="title"  property="title" />
+    <result column="image"  property="image" />
+    <result column="detail_url" property="detailUrl" />
+    <result column="order"  property="order" />
+    <result column="create_time" property="createTime" />
+  </resultMap>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    select banner_id, title, image, detail_url, b.order, create_time
+    from banner b
+    order by #{order} DESC
+  </select>
+
+
+</mapper>

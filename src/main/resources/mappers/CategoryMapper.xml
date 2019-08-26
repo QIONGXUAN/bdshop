@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vip.bd.mapper.CategoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.vip.bd.domain.entity.Category">
+        <id column="cate_id" jdbcType="INTEGER" property="cateId" />
+        <result column="cate_name" jdbcType="VARCHAR" property="cateName" />
+    </resultMap>
+
+    <resultMap id="findAllMap" type="com.vip.bd.domain.vo.CateGoryVo"
+                extends="BaseResultMap">
+        <collection property="subMenuList"
+                    resultMap="com.vip.bd.mapper.SubMenuMapper.Base_SubMenu_Vo">
+        </collection>
+    </resultMap>
+
+    <resultMap id="findByCateIdMap" type="com.vip.bd.domain.vo.CateGoryVo">
+        <collection property="shopList" ofType="com.vip.bd.domain.entity.Shop"
+                    resultMap="com.vip.bd.mapper.ShopMapper.findByCateIdMap"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="findAllMap">
+        SELECT c.cate_id, c.name cate_name, sm.sub_menu_id, sm.name menu_name, sm.cate_id, sm1.sub_menu2_id, sm1.name menu_name1, sm1.sub_menu_id
+        FROM category c
+            LEFT JOIN sub_menu sm ON c.cate_id = sm.cate_id
+            LEFT JOIN sub_menu1 sm1 ON sm.sub_menu_id = sm1.sub_menu_id
+    </select>
+
+    <select id="findByCateId" resultMap="findByCateIdMap">
+        select c.cate_id, c.name cate_name,
+            s.shop_id, s.name shop_name, sub_title, original_price, promote_price,
+            shop_img_id, type
+        from category c
+        left join shop s on c.cate_id = s.cate_id
+        left join shop_image si on s.shop_id = si.shop_id
+        where c.cate_id=#{cateId} and si.type="type_single"
+        limit #{page},#{size}
+    </select>
+
+</mapper>

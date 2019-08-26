@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wener.mapper.SubMenuMapper">
+    <resultMap id="Base_SubMenu_ResultMap" type="SubMenu">
+        <id property="subMenuId" column="sub_menu_id"/>
+        <result property="subName" column="sm_name" />
+        <result property="cateId" column="cate_id" />
+    </resultMap>
+
+    <resultMap id="Base_SubMenu_Vo"
+               type="com.wener.domain.vo.SubMenuVo"
+               extends="Base_SubMenu_ResultMap">
+
+        <collection property="subMenu1List" ofType="com.wener.domain.entity.SubMenu1">
+                    <id property="subMenu2Id" column="sub_menu2_id"/>
+                    <result property="menuName" column="sm1_name" />
+        </collection>
+
+    </resultMap>
+
+</mapper>

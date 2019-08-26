@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vip.bd.mapper.ShopMapper">
+  
+  <resultMap id="BaseResultMap" type="com.vip.bd.domain.entity.Shop">
+    <id column="shop_id" property="shopId" />
+    <result column="shop_name"  property="shopName" />
+    <result column="sub_title"  property="subTitle" />
+    <result column="original_price"  property="originalPrice" />
+    <result column="promote_price"  property="promotePrice" />
+    <result column="stock"  property="stock" />
+    <result column="cate_id"  property="cateId" />
+    <result column="shop_create_date"  property="createDate" />
+  </resultMap>
+
+  <resultMap id="findByCateIdMap" type="com.vip.bd.domain.vo.ShopVo"
+             extends="BaseResultMap">
+    <association property="shopImage" javaType="com.vip.bd.domain.entity.ShopImage"
+                 resultMap="com.vip.bd.mapper.ShopImageMapper.BaseResultMap"/>
+  </resultMap>
+
+  <resultMap id="findShopImgMap" type="com.vip.bd.domain.vo.ShopVo"
+             extends="BaseResultMap">
+    <collection property="shopImages" ofType="com.vip.bd.domain.entity.ShopImage"
+                 resultMap="com.vip.bd.mapper.ShopImageMapper.BaseResultMap"/>
+  </resultMap>
+
+  <resultMap id="findReviewMap" type="com.vip.bd.domain.vo.ShopVo"
+             extends="BaseResultMap">
+    <collection property="reviews" ofType="com.vip.bd.domain.entity.Review"
+                resultMap="com.vip.bd.mapper.ReviewMapper.BaseResultMap"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    s.shop_id, s.name shop_name, s.sub_title, original_price, promote_price
+  </sql>
+  <select id="findByKeyWord" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shop s
+    where s.name like concat(concat('%',#{kw}),'%')
+    or s.sub_title like concat(concat('%',#{kw}),'%')
+  </select>
+
+  <select id="findShopImg" resultMap="findShopImgMap">
+    select <include refid="Base_Column_List" />, stock, s.cate_id, s.create_date shop_create_date,
+            shop_img_id, type
+    from shop s
+    left join shop_image si on s.shop_id = si.shop_id
+    where s.shop_id = #{shopId}
+  </select>
+
+  <select id="findReview" resultMap="findReviewMap">
+    select <include refid="Base_Column_List" />, stock, s.cate_id, s.create_date shop_create_date,
+        review_id, content, r.create_date review_create_date, uid
+    from shop s
+    left join review r on s.shop_id = r.shop_id
+    where s.shop_id = #{shopId}
+  </select>
+
+  <select id="shopCount" resultType="int">
+    select count(*)
+    from shop s
+    where cate_id=#{cateId}
+  </select>
+
+</mapper>

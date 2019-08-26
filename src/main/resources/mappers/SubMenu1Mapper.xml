@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vip.bd.mapper.SubMenu1Mapper">
+  <resultMap id="BaseResultMap" type="com.vip.bd.domain.entity.SubMenu1">
+    <!--@mbg.generated-->
+    <id column="sub_menu2_id" jdbcType="INTEGER" property="subMenu2Id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sub_menu_id" jdbcType="INTEGER" property="subMenuId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    sub_menu2_id, `name`, sub_menu_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from sub_menu1
+    where sub_menu2_id = #{subMenu2Id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from sub_menu1
+    where sub_menu2_id = #{subMenu2Id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="sub_menu2_id" keyProperty="subMenu2Id" parameterType="com.vip.bd.domain.entity.SubMenu1" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sub_menu1 (`name`, sub_menu_id)
+    values (#{name,jdbcType=VARCHAR}, #{subMenuId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="sub_menu2_id" keyProperty="subMenu2Id" parameterType="com.vip.bd.domain.entity.SubMenu1" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sub_menu1
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="subMenuId != null">
+        sub_menu_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subMenuId != null">
+        #{subMenuId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vip.bd.domain.entity.SubMenu1">
+    <!--@mbg.generated-->
+    update sub_menu1
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subMenuId != null">
+        sub_menu_id = #{subMenuId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sub_menu2_id = #{subMenu2Id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vip.bd.domain.entity.SubMenu1">
+    <!--@mbg.generated-->
+    update sub_menu1
+    set `name` = #{name,jdbcType=VARCHAR},
+      sub_menu_id = #{subMenuId,jdbcType=INTEGER}
+    where sub_menu2_id = #{subMenu2Id,jdbcType=INTEGER}
+  </update>
+</mapper>

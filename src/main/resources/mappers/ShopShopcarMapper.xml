@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vip.bd.mapper.ShopShopcarMapper">
+  <resultMap id="BaseResultMap" type="com.vip.bd.domain.entity.ShopShopcar">
+    <id column="car_id" jdbcType="INTEGER" property="carId" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="oid" jdbcType="INTEGER" property="oid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    car_id, `number`, shop_id, `uid`, oid, `status`
+  </sql>
+
+  <insert id="insert">
+    insert into shop_shopcar (number, shop_id, uid, status)
+    values (#{number},#{shopId},#{uid},1)
+  </insert>
+
+
+</mapper>

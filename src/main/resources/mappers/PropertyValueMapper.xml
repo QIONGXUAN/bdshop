@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vip.bd.mapper.PropertyValueMapper">
+  <resultMap id="BaseResultMap" type="com.vip.bd.domain.entity.PropertyValue">
+    <id column="pro_value_id" jdbcType="INTEGER" property="proValueId" />
+    <result column="property_id" jdbcType="INTEGER" property="propertyId" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+  </resultMap>
+
+    <resultMap id="findByShopIdMap" type="com.vip.bd.domain.vo.PropertyValueVo"
+               extends="BaseResultMap">
+        <collection property="propertyList" ofType="com.vip.bd.domain.entity.Property"
+                    resultMap="com.vip.bd.mapper.PropertyMapper.BaseResultMap"/>
+    </resultMap>
+
+  <select id="findByShopId" resultMap="findByShopIdMap">
+    select pv.shop_id, p.name property_name, pv.value
+    from property_value pv
+    left join property p on pv.property_id = p.property_id
+    where pv.shop_id = #{shopId}
+  </select>
+
+</mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vip.bd.mapper.ReviewMapper">
+  <resultMap id="BaseResultMap" type="com.vip.bd.domain.entity.Review">
+    <id column="review_id"  property="reviewId" />
+    <result column="content" property="content" />
+    <result column="review_create_date"  property="createDate" />
+    <result column="shop_id" property="shopId" />
+    <result column="uid"  property="uid" />
+  </resultMap>
+
+</mapper>

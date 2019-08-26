@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vip.bd.mapper.ShopImageMapper">
+
+  <resultMap id="BaseResultMap" type="com.vip.bd.domain.entity.ShopImage">
+    <id column="shop_img_id" property="shopImgId" />
+    <result column="shop_id" property="shopId" />
+    <result column="type" property="type" />
+  </resultMap>
+
+
+</mapper>
